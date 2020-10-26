@@ -10,7 +10,9 @@
 <% @books.each do |book| %>
 <div>
   <p>投稿ユーザー画像：</p>
-  <p>Title：<%= book.title %></p>
+  <%= link_to book_path(book.id) do %>
+    <p>Title：<%= book.title %></p>
+  <% end %>  
   <p>Opinion：<%= book.body %></p>
 </div>
 <% end %>
