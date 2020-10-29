@@ -8,7 +8,7 @@ class User < ApplicationRecord
     uniqueness: true,
     length: { in: 2..20 } 
     
-  validates :tintroduction, 
+  validates :introduction, 
     length: { maximum: 50 }
          
   has_many :books, dependent: :destroy
