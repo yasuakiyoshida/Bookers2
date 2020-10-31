@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  before_action :ensure_correct_user, only:[:edit]
   
   def index
     @books = Book.all
@@ -12,15 +13,17 @@ class BooksController < ApplicationController
     @book.user_id = current_user.id
     if @book.save
       flash[:notice] = "You have created book successfully."
-      redirect_to book_path(@book)
+      redirect_to book_path(@book.id)
     else
       @books = Book.all
-      render :index
+      @user = current_user
+      render 'index'
     end
   end
-
+  
   def show
-    @book = Book.new
+    @books = Book.new
+    # @bookにするとform_withがcreateではなくupdateに飛ぶ
     @book = Book.find(params[:id])
   end
   
@@ -48,5 +51,12 @@ class BooksController < ApplicationController
   
   def book_params
     params.require(:book).permit(:title, :body)
+  end
+  
+  def ensure_correct_user#投稿したユーザーと現在ログインしているユーザーを比較するメソッド
+    @book = Book.find(params[:id])#投稿を取得
+    unless @book.user == current_user#投稿したユーザーが現在ログインしているユーザーではない場合
+      redirect_to books_path#投稿一覧画面にリダイレクト
+    end
   end
 end
