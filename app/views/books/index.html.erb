@@ -1,11 +1,11 @@
 <p id = "notice"><%= notice %></p>
-<div class = "container px-5 px-sm-0">
+<div class = "container px-0"><!--左右のパディング0-->
   <div class = "row">
     <div class = "col-md-3">
       <%= render 'users/list', book: @book, user: @user %>
-      <div class = "col-md-8 offset-md-1">
+      <div class = "col-md-8 offset-md-1"><!--余白1+col8-->
         <h2>Books</h2>
-        <table class = "table table-hover table-inverse">
+        <table class = "table">
           <thead>
             <tr>
               <th></th>
